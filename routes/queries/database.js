@@ -25,6 +25,7 @@ export async function getUser(id){
     
 }
 
+//CREATE A USER IN THE DATABASE
 export async function createUser(firstName, lastName, email, userName){
     const [result] = await pool.query(
         `INSERT INTO users (first_name, last_name, email, user_name) 
