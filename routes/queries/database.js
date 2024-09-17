@@ -35,6 +35,14 @@ export async function createUser(firstName, lastName, email, userName){
         return getUser(newUserId);
 }
 
+//DELETE A USER FROM THE DATABASE
+
+export async function deleteUser(id){
+    const [result] = await pool.query(
+        'DELETE FROM users WHERE user_id = ?', [id])
+        return result
+}
+
 //DEBUG
 //async function testGetUser() {
 //    try {

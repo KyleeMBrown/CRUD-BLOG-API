@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUsers, createUser, getUser } from './queries/database.js'
+import { getUsers, createUser, getUser, deleteUser } from './queries/database.js'
 
 const router = express.Router();
 
@@ -39,12 +39,29 @@ router.post('/users', async (req,res)=>{
     try{
         const { first_name, last_name, email, user_name } = req.body;
         const createdUser =  await createUser(first_name, last_name, email, user_name);
-        console.log(createUser)
+        //console.log(createUser)
         res.status(201).json(createdUser);
     }catch(error){
         res.status(500).send("ERROR User cannot be created");
     }
    
 });
+
+//DELETE A USER 
+router.delete('/delete-user/:id', async (req,res)=>{
+    try{
+        const {id} = req.params;
+        const deletedUser = await deleteUser(id);
+
+        if (deletedUser.affectedRows === 0) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json({ message: 'User deleted successfully' });
+    }catch(error) {
+        console.error('Error deleting user:', error); 
+        res.status(500).json({ message: 'Error when deleting user' });
+    }
+})
 
 export default router;
