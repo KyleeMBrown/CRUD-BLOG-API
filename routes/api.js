@@ -71,8 +71,8 @@ router.put('/update-user/:id', async (req,res)=>{
         const {id} = req.params;
         const {username} = req.body;
         const update = await updateUser(id, username);
-        const Getuser = await getUser(id);
-        const user = Getuser
+        const user = await getUser(id);
+        
 
         
         res.status(200).json({message:`${user.first_name}'s username has been updated to ${username}`, user})
