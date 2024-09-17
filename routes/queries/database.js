@@ -43,6 +43,15 @@ export async function deleteUser(id){
         return result
 }
 
+export async function updateUser(id, newUserName){
+    const [result] = await pool.query(
+        `UPDATE users
+        SET user_name = ?
+        WHERE user_id = ?;`, [newUserName, id])
+        return result
+}
+
+
 //DEBUG
 //async function testGetUser() {
 //    try {

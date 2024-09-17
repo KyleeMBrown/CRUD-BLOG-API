@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUsers, createUser, getUser, deleteUser } from './queries/database.js'
+import { getUsers, createUser, getUser, deleteUser, updateUser } from './queries/database.js'
 
 const router = express.Router();
 
@@ -61,6 +61,23 @@ router.delete('/delete-user/:id', async (req,res)=>{
     }catch(error) {
         console.error('Error deleting user:', error); 
         res.status(500).json({ message: 'Error when deleting user' });
+    }
+})
+
+//UPDATE USER NAME
+
+router.put('/update-user/:id', async (req,res)=>{
+    try{
+        const {id} = req.params;
+        const {username} = req.body;
+        const update = await updateUser(id, username);
+        const Getuser = await getUser(id);
+        const user = Getuser
+
+        
+        res.status(200).json({message:`${user.first_name}'s username has been updated to ${username}`, user})
+    }catch(error){
+        res.status(500).json({message: `Error updating user`})
     }
 })
 
