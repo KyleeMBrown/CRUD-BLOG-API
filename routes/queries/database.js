@@ -16,11 +16,13 @@ export async function getUsers(){
     return rows;
 }
 
+//Get User by id (user_id)
 export async function getUser(id){
-    const [rows] = await  pool.query(
-        "SELECT * FROM users WHERE user_id = ?", [id]
+    const [rows] = await pool.query(
+        'SELECT * FROM users WHERE user_id = ? LIMIT 1', [id]
         );
-    return rows[0];
+    return rows[0] || null;
+    
 }
 
 export async function createUser(firstName, lastName, email, userName){
@@ -32,3 +34,14 @@ export async function createUser(firstName, lastName, email, userName){
         return getUser(newUserId);
 }
 
+//DEBUG
+//async function testGetUser() {
+//    try {
+//        const user = await getUser(1); // Call the function with the user ID
+//       console.log(user); // Log the result
+//    } catch (err) {
+//        console.error('Error fetching user:', err); // Log an error if it occurs
+//    }
+//}
+
+//testGetUser();
