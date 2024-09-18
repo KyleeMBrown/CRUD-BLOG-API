@@ -43,11 +43,12 @@ export async function deleteUser(id){
         return result
 }
 
+//UPDATE USERNAME BY ID
 export async function updateUser(id, newUserName){
     const [result] = await pool.query(
         `UPDATE users
         SET user_name = ?
-        WHERE user_id = ?;`, [newUserName, id])
+        WHERE user_id = ?`, [newUserName, id])
         return result
 }
 

@@ -64,7 +64,7 @@ router.delete('/delete-user/:id', async (req,res)=>{
     }
 })
 
-//UPDATE USER NAME
+//UPDATE USER NAME BY ID
 
 router.put('/update-user/:id', async (req,res)=>{
     try{
@@ -72,9 +72,7 @@ router.put('/update-user/:id', async (req,res)=>{
         const {username} = req.body;
         const update = await updateUser(id, username);
         const user = await getUser(id);
-        
-
-        
+     
         res.status(200).json({message:`${user.first_name}'s username has been updated to ${username}`, user})
     }catch(error){
         res.status(500).json({message: `Error updating user`})
